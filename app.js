@@ -93,16 +93,16 @@ function keyPressed() {
     setTimeout(function() {
       recorder.record(beats[3]);
     }, 2000);
-  } else if (keyCode == 81) {
+  } else if (keyCode == 80) {
     console.log("play 1");
     beats[0].play();
-  } else if (keyCode == 87) {
+  } else if (keyCode == 84) {
     console.log("play 2");
     beats[1].play();
-  } else if (keyCode == 69) {
+  } else if (keyCode == 75) {
     console.log("play 3");
     beats[2].play();
-  } else if (keyCode == 82) {
+  } else if (keyCode == 83) {
     console.log("play 4");
     beats[3].play();
   } else if (keyCode == 32) {
