@@ -1,47 +1,35 @@
-function activateGrooves(beats) {
+//variables for the groove settings
 
-  console.log("porco activate");
-  var boxPhraseA = new p5.Phrase(beats[0], playBox, boxPatA);
-  var drumPhraseA = new p5.Phrase(beats[1], playDrum, drumPatA);
-  var hatPhraseA = new p5.Phrase(beats[2], playHat, hatPatA);
-  var ohatPhraseA = new p5.Phrase(beats[3], playOhat, ohatPatA);
+var myPartB,boxPhraseB;
+var boxPatB =  [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0];
+var drumPatB = [0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0];
+var hatPatB =  [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0];
+var ohatPatB = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0];
 
-  var boxPhraseB = new p5.Phrase(beats[0], playBox, boxPatB);
-  var drumPhraseB = new p5.Phrase(beats[1], playDrum, drumPatB);
-  var hatPhraseB = new p5.Phrase(beats[2], playHat, hatPatB);
-  var ohatPhraseB = new p5.Phrase(beats[3], playOhat, ohatPatB);
 
-  var boxPhraseC = new p5.Phrase(beats[0], playBox, boxPatC);
-  var drumPhraseC = new p5.Phrase(beats[1], playDrum, drumPatC);
-  var hatPhraseC = new p5.Phrase(beats[2], playHat, hatPatC);
-  var ohatPhraseC = new p5.Phrase(beats[3], playOhat, ohatPatC);
+function activateGrooves(myPartB) {
 
-  myPartA = new p5.Part();
-  myPartA.addPhrase(boxPhraseA);
-  myPartA.addPhrase(drumPhraseA);
-  myPartA.addPhrase(hatPhraseA);
-  myPartA.addPhrase(ohatPhraseA);
+  console.log('beats activated');
 
-  myPartB = new p5.Part();
+  boxPhraseB = new p5.Phrase("beats[0]", playBox, boxPatB);
+  var drumPhraseB = new p5.Phrase("beats[1]", playDrum, drumPatB);
+  var hatPhraseB = new p5.Phrase("beats[2]", playHat, hatPatB);
+  var ohatPhraseB = new p5.Phrase("beats[3]", playOhat, ohatPatB);
+
   myPartB.addPhrase(boxPhraseB);
   myPartB.addPhrase(drumPhraseB);
   myPartB.addPhrase(hatPhraseB);
   myPartB.addPhrase(ohatPhraseB);
 
-  myPartC = new p5.Part();
-  myPartC.addPhrase(boxPhraseC);
-  myPartC.addPhrase(drumPhraseC);
-  myPartC.addPhrase(hatPhraseC);
-  myPartC.addPhrase(ohatPhraseC);
-
-  myPartA.setBPM(110);
   myPartB.setBPM(110);
-  myPartC.setBPM(110);
 
   masterVolume(0.5);
 }
 
 function playBox(time, playbackRate) {
+  console.log('inside playBox');
+  console.log(myPartB);
+  console.log(beats[0]);
   beats[0].rate(playbackRate);
   beats[0].play(time);
 }

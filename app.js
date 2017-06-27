@@ -3,27 +3,6 @@ var noBeats = 4;
 var beatsRecorded = [0, 0, 0, 0];
 var grooveActivated = 0;
 
-//variables for the groove settings
-var myPartA, myPartB, myPartC;
-
-// Sequence of the sounds
-var boxPatA =  [1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.8];
-var drumPatA = [0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0, 0, 0, 0];
-var hatPatA =  [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0];
-var ohatPatA = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.8, 0];
-
-var boxPatB =  [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0];
-var drumPatB = [0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0];
-var hatPatB =  [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0];
-var ohatPatB = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0];
-
-
-
-var boxPatC =  [1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0];
-var drumPatC = [0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0];
-var hatPatC =  [0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0];
-var ohatPatC = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-
 function preload() {
   metronome = loadSound('assets/metronome.wav');
   metronome.setVolume(0.7);
@@ -46,6 +25,8 @@ function setup() {
   for (var i = 0; i < noBeats; i++) {
     beats[i] = new p5.SoundFile();
   }
+  myPartB = new p5.Part();
+  activateGrooves(myPartB);
 
 }
 
@@ -105,12 +86,16 @@ function keyPressed() {
   } else if (keyCode == 83) {
     console.log("play 4");
     beats[3].play();
-  } else if (keyCode == 32) {
+  }
+  //refresh key - resets all variables
+  else if (keyCode == 32) {
     grooveActivated = 0;
     for (var i = 0; i < noBeats; i++) {
       beats[i] = new p5.SoundFile();
       beatsRecorded[i] = 0;
     }
+
+
     $(".loop-st__button").fadeTo(0.01, 0.5);
     $(".loop-st__groove-button").fadeTo(0.01, 0.5);
   }
@@ -118,27 +103,9 @@ function keyPressed() {
   //to activate the grooves
   if (keyCode == 53 && grooveActivated == 1) {
     myPartB.loop();
-    // myPartB.stop();
-    // myPartC.stop();
     print("seq1");
-    // msg = 'HipHop Sequence';
   }
-  // press 2 to trigger the Techno Seq
-  // else if (keyCode == 54 && grooveActivated == 1) {
-  //   myPartB.start();
-  //   // myPartA.stop();
-  //   // myPartC.stop();
-  //   print("seq2");
-  //   // msg = 'Techno Sequence';
-  // }
-  // // press 3 to trigger the Reggaeton
-  // else if (keyCode == 55 && grooveActivated == 1) {
-  //   myPartC.loop();
-  //   // myPartA.stop();
-  //   // myPartB.stop();
-  //   //  msg = 'Reggaeton Sequence';
-  //   print("seq3");
-  // }
+
 
   if (div) {
     for (var i = 0; i < 2; i++) {
@@ -170,15 +137,15 @@ function keyReleased() {
       beatsRecorded[3] = 1;
     }
   }
-  if (keyCode == 53) {
+  if (keyCode == 53 && grooveActivated == 1) {
     console.log('released');
     myPartB.stop();
   }
 
   //if all four beats are recorded, enable the groove buttons
-  if (beatsRecorded[0] && beatsRecorded[1] && beatsRecorded[2] && beatsRecorded[3] && !grooveActivated) {
+  if (beatsRecorded[0] && beatsRecorded[1] && beatsRecorded[2] && beatsRecorded[3] &&
+    !grooveActivated) {
     console.log("all are recorded");
-    activateGrooves(beats);
     grooveActivated = 1;
     $(".loop-st__groove-button").fadeTo(0.01, 1);
   }
